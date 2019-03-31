@@ -4,6 +4,7 @@
 
 <?php require_once("..\\resources\\cart.php"); ?>
 
+ 
 
  <!-- Page Content -->
     <div class="container">
@@ -16,13 +17,7 @@
       <h1>Checkout</h1>
 
 
-  <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-    <input type="hidden" name="cmd" value="_cart">
-  <input type="hidden" name="business" value="shantanumishra33-facilitator@icloud.com ">
-   <input type="hidden" name="display" value="1">
-    <input type="hidden" name="add" value="1">
-    <input type="hidden" name="upload" value="1">
-    
+  
 
      <table class="table table-striped">
         <thead>
@@ -35,17 +30,20 @@
           </tr>
         </thead>
         <tbody>
-            <?php cart();  ?>
+            <?php cart();?>  
         </tbody>
     </table>
   
-  <input type="image" name="upload"
-    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-    alt="PayPal - The safer, easier way to pay online">
-  
+ <?php require_once('..\\Stripes\\config.php'); ?>
 
+<form action="..\\Stripes\\charge.php" method="post">
+  <input type="hidden" name="amount" value=<?php if(isset($_SESSION['quantity_total'])){
+    echo $_SESSION['price_total']*100;
 
-   
+  } ?>>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<?php echo $stripe['publishable_key']; ?>"
+          data-amount=<?php echo $_SESSION['price_total']*100?> data-description="One year's subscription"></script>
 </form>
 
 

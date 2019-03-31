@@ -184,5 +184,6 @@ function send_message(){
 	}
 
 }
+ 
 
 ?>
